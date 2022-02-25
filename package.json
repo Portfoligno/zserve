@@ -1,0 +1,26 @@
+{
+  "name": "zserve",
+  "version": "0.1.0",
+  "bin": {
+    "zserve": "cli.js"
+  },
+  "files": [
+    "cli.js"
+  ],
+  "scripts": {
+    "build": "spago -P bundle-app && echo '#!/usr/bin/env node' >cli.js && cat index.js >>cli.js && chmod +x cli.js"
+  },
+  "devDependencies": {
+    "purescript": "^0.14.6",
+    "spago": "^0.20.7"
+  },
+  "optionalDependencies": {
+    "purescript-psa": "^0.8.2"
+  },
+  "author": "Nicholas Yip <nicholasyip@obceit.cc>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sd-yip/zserve.git"
+  }
+}
