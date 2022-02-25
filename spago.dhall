@@ -4,9 +4,25 @@ let psc =
 
 in  { name = ""
     , dependencies =
-      [ "console"
+      [ "aff"
+      , "argonaut-codecs"
+      , "argonaut-core"
+      , "arrays"
+      , "bifunctors"
+      , "console"
       , "effect"
+      , "either"
+      , "foldable-traversable"
+      , "httpure"
+      , "lists"
+      , "maybe"
+      , "node-child-process"
+      , "node-fs"
+      , "node-process"
+      , "optparse"
       , "prelude"
+      , "tuples"
+      , "unsafe-coerce"
       ]
     , packages = psc
     , sources = [ "src/main/purescript/**/*.purs" ]
