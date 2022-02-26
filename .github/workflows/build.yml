@@ -1,0 +1,33 @@
+
+on:
+  push:
+    branches: ['**']
+  release:
+    types: [published]
+
+env:
+  CI_RELEASE: ${{ github.event_name == 'release' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      node:17.6.0-bullseye-slim@sha256:b43cec5ee3591db7b3d6055983350faf39349019d8319ff867f2fa101dd307cb
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: |
+          apt-get update && apt-get install -y libtinfo5 ca-certificates git
+          npm ci --no-optional
+          npm run build
+
+      - if: env.CI_RELEASE == 'true'
+        env:
+          TAG_NAME: ${{ github.event.release.tag_name }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          [ "$(node -p 'require("./package.json").version')" = "$TAG_NAME" ]
+          [ "$(node -p 'require("./package-lock.json").version')" = "$TAG_NAME" ]
+          echo //registry.npmjs.org/:_authToken="$NPM_TOKEN" >> .npmrc
+          npm publish
