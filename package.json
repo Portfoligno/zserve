@@ -1,6 +1,6 @@
 {
   "name": "zserve",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "bin": {
     "zserve": "cli.js"
   },
@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "ansi-regex": "^6.0.1",
-    "purescript": "^0.14.6",
+    "purescript": "^0.14.7",
     "spago": "^0.20.7"
   },
   "optionalDependencies": {
