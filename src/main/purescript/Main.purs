@@ -104,7 +104,7 @@ startServer r@{ host, port, serve, run } =
           Normally i -> Process.exit i
           BySignal _ -> Process.exit (-1)
 
-    route { method: Get, path: [], headers } = routeParsed <<< maybe (Right []) readZ $ headers !! "Z"
+    route { method: Get, path, headers } = routeParsed <<< map (path <> _) <<< maybe (Right []) readZ $ headers !! "Z"
     route _ = notFound
 
     routeParsed (Left message) = (_ { status = 404 }) <$> badRequest (message <> "\n")
