@@ -45,8 +45,8 @@ splitArgumentLists = case _ of
   "--" : list -> go Nil list
   list -> go Nil list
   where
-    go prefix ("--" : suffix) = Tuple (List.reverse prefix) (Just suffix)
     go prefix Nil = Tuple (List.reverse prefix) Nothing
+    go prefix ("--" : suffix) = Tuple (List.reverse prefix) (Just suffix)
     go prefix (s : suffix) = go (s : prefix) suffix
 
 settingsParser :: Parser RawSettings
@@ -68,7 +68,7 @@ adaptOptions r@{ serve, run } = do
     Nothing -> Left $ ErrorMsg "Missing: COMMAND"
     Just xs -> Right xs
   run' <- case NonEmptyList.fromList <$> run of
-    Just Nothing -> Left $ ErrorMsg "Missing: COMMAND to spawn"
+    Just Nothing -> Left $ ErrorMsg "Missing: COMMAND to run immediately"
     Just (Just xs) -> Right $ Just xs
     Nothing -> Right Nothing
   pure
@@ -95,7 +95,7 @@ startServer r@{ host, port, serve, run } =
     command = NonEmptyList.head serve
     baseArguments = Array.fromFoldable $ NonEmptyList.tail serve
 
-    printSettings = errorShow r { serve = Array.fromFoldable serve, run = Array.fromFoldable <$> run }
+    printSettings = errorShow r{ serve = Array.fromFoldable serve, run = Array.fromFoldable <$> run }
     onStart = printSettings *> case run of
       Nothing -> pure unit
       Just xs -> do
@@ -107,7 +107,7 @@ startServer r@{ host, port, serve, run } =
     route { method: Get, path, headers } = routeParsed <<< map (path <> _) <<< maybe (Right []) readZ $ headers !! "Z"
     route _ = notFound
 
-    routeParsed (Left message) = (_ { status = 404 }) <$> badRequest (message <> "\n")
+    routeParsed (Left message) = (_{ status = 404 }) <$> badRequest (message <> "\n")
     routeParsed (Right arguments) = do
       process <- liftEffect $ spawn command (baseArguments <> arguments) serveOptions
       exit <- makeAff \f -> onExit process (f <<< Right) $> nonCanceler
