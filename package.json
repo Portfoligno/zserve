@@ -11,10 +11,8 @@
     "build": "spago -P bundle-app && echo '#!/usr/bin/env node' >cli.js && cat index.js >>cli.js && chmod +x cli.js"
   },
   "devDependencies": {
-    "ansi-regex": "^4.1.1",
-    "minimist": "^1.2.6",
-    "purescript": "^0.14.9",
-    "spago": "^0.20.7"
+    "purescript": "^0.15.2",
+    "spago": "^0.20.9"
   },
   "optionalDependencies": {
     "purescript-psa": "^0.8.2"

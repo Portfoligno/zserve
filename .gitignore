@@ -5,6 +5,7 @@
 /node_modules
 
 # PureScript
+/.psci_modules
 /.spago
 /output
 
