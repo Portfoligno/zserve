@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      node:17.6.0-bullseye-slim@sha256:b43cec5ee3591db7b3d6055983350faf39349019d8319ff867f2fa101dd307cb
+      node:18.4.0-bullseye-slim@sha256:f1a1a61d847a80ad05f5ef75ee2e0e4515a7ec21f8eb99280eafe33092384583
 
     steps:
       - uses: actions/checkout@v2
@@ -29,5 +29,5 @@ jobs:
         run: |
           [ "$(node -p 'require("./package.json").version')" = "$TAG_NAME" ]
           [ "$(node -p 'require("./package-lock.json").version')" = "$TAG_NAME" ]
-          echo //registry.npmjs.org/:_authToken="$NPM_TOKEN" >> .npmrc
+          echo //registry.npmjs.org/:_authToken="$NPM_TOKEN" >>.npmrc
           npm publish
