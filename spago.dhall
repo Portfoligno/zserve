@@ -25,5 +25,5 @@ in  { name = ""
       , "unsafe-coerce"
       ]
     , packages = psc
-    , sources = [ "src/main/purescript/**/*.purs" ]
+    , sources = [ "src/**/*.purs" ]
     }
