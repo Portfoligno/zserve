@@ -1,6 +1,6 @@
 {
   "name": "zserve",
-  "version": "0.2.1",
+  "version": "0.2.5",
   "bin": {
     "zserve": "cli.js"
   },
@@ -24,6 +24,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sd-yip/zserve.git"
+    "url": "https://github.com/Portfoligno/zserve.git"
   }
 }
