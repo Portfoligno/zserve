@@ -19,7 +19,7 @@ jobs:
 
       - run: |
           apt-get update && apt-get install -y ca-certificates git
-          npm ci --no-optional
+          npm ci --omit optional
           npm run build
 
       - if: env.CI_RELEASE == 'true'
